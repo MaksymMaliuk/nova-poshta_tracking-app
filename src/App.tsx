@@ -11,9 +11,8 @@ export const App: FC = () => (
       flex="1"
       alignItems="center"
       justifyContent="center"
-      background="gray.100"
+      background="#fafafa"
     >
-      {/* Ваше основное содержимое здесь */}
     </Flex>
 
     <Footer />
