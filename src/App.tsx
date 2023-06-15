@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { OrderStatus } from './components/OrderStatus';
+import { FormComponent } from './components/FormComponent';
 
 export const App: FC = () => (
   <Flex direction="column" height='100vh'>
@@ -10,10 +11,12 @@ export const App: FC = () => (
 
     <Flex
       flex="1"
+      flexDir='column'
       alignItems="center"
       justifyContent="center"
       background="#fafafa"
     >
+      <FormComponent />
       <OrderStatus />
     </Flex>
 
