@@ -1,16 +1,16 @@
 import { Flex } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import React from 'react';
 import { Response } from '../../types/types';
 
 type Props = {
   order: Response
 }
 
-export const OrderStatus: FC<Props> = ({ order }) => {
-  const { errors , data } = order;
+export const OrderStatus: React.FC<Props> = ({ order }) => {
+  const { data } = order;
   const status = data.map(item => item.Status);
   
-  return  (
+  return (
     <Flex 
       p='40px 24px'
       borderRadius={8}
