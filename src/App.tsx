@@ -15,7 +15,6 @@ export const App: React.FC = () => {
   const orderInfo = order?.data.find((item: DataItem) => item.Number);
   
   const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
-  console.log(storedOrders);
   
   const addOrder = (item: Response | null) => {
     const orderExist = storedOrders.some((orders: Response) => (
@@ -50,10 +49,13 @@ export const App: React.FC = () => {
   return (
     <Flex direction="column" height='100vh'>
       <Header />
+
       <Flex 
         flex='1' 
-        justifyContent='center' 
+        alignItems='center'
         background="#fafafa"
+        justifyContent='center'
+        gap={10}
       >
         <Flex
           flexDir='column'
@@ -67,8 +69,9 @@ export const App: React.FC = () => {
           }
         </Flex>
 
-        <OrdersHistory ordersHistory={storedOrders} />
-
+        {storedOrders.length > 0 &&
+         <OrdersHistory ordersHistory={storedOrders} />
+        }  
       </Flex>
 
       <Footer />
