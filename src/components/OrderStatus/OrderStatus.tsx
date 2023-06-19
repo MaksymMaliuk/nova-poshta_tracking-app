@@ -23,14 +23,14 @@ export const OrderStatus: React.FC<Props> = ({ order }) => {
       background='#fff'
     >
       <div>Статус доставки: {status}</div>
-      {data.map(item => {
+      {data.map((item, index) => {
         const {
           WarehouseSender,
           WarehouseRecipient
         } = item;
 
         return (
-          <>
+          <div key={index}>
             <div>
               <b>Місце відправки:</b>
               <p>{WarehouseSender}</p>
@@ -40,7 +40,7 @@ export const OrderStatus: React.FC<Props> = ({ order }) => {
               <b>Місце отримання:</b>
               <p>{WarehouseRecipient}</p>
             </div>
-          </>
+          </div>
         );
       })}
     </Flex>
