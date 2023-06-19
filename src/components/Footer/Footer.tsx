@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <Flex 
       maxH='80px' 
