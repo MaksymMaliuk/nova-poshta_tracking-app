@@ -1,7 +1,15 @@
 import { Flex } from '@chakra-ui/react';
 import React, { FC } from 'react';
+import { Response } from '../../types/types';
 
-export const OrderStatus: FC = () => {
+type Props = {
+  order: Response
+}
+
+export const OrderStatus: FC<Props> = ({ order }) => {
+  const { errors , data } = order;
+  const status = data.map(item => item.Status);
+  
   return  (
     <Flex 
       p='40px 24px'
@@ -9,21 +17,32 @@ export const OrderStatus: FC = () => {
       flexDir='column'
       gap={4}
       boxShadow='0 0 4px #0000001f'
-      minW='400px' 
+      minW='400px'
+      maxW='700px'
       height='auto' 
       background='#fff'
     >
-      <div>Статус доставки: Одержано</div>
+      <div>Статус доставки: {status}</div>
+      {data.map(item => {
+        const {
+          WarehouseSender,
+          WarehouseRecipient
+        } = item;
 
-      <div>
-        <b>Відправлено:</b>
-        <p>Відділення №17 (до 30кг): вул. Розумовська, 29</p>
-      </div>
+        return (
+          <>
+            <div>
+              <b>Місце відправки:</b>
+              <p>{WarehouseSender}</p>
+            </div>
 
-      <div>
-        <b>Отримано:</b>
-        <p>Відділення №3 (до 30кг): просп. Гагаріна, 43</p>
-      </div>
+            <div>
+              <b>Місце отримання:</b>
+              <p>{WarehouseRecipient}</p>
+            </div>
+          </>
+        );
+      })}
     </Flex>
   );
 };
