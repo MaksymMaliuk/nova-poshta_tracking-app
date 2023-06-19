@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex, Image, Tab, TabList, Tabs } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 import logo from '../../assets/NP-logo.png';
 
-export const Header = () => (
+export const Header: React.FC = () => (
   <Flex 
     height='auto' 
     p={2}

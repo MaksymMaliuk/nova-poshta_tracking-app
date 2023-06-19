@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { OrderStatus } from './components/OrderStatus';
@@ -7,7 +7,7 @@ import { FormComponent } from './components/FormComponent';
 import { Response } from './types/types';
 import { sendPostRequest } from './api/requests';
 
-export const App: FC = () => {
+export const App: React.FC = () => {
   const [order, setOrder] = useState<Response | null>(null);
 
   const handleSendStatusRequest = async (tnnNumber: string): Promise<void> => {

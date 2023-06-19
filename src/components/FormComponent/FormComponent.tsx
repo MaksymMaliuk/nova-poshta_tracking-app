@@ -1,15 +1,13 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormErrorMessage } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import React, { FC, useState } from 'react';
-import { Response } from '../../types/types';
-import { Center } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
 type Props = {
   onSendStatus: (tnnNumber: string) => Promise<void>;
 };
 
-export const FormComponent: FC<Props> = ({ onSendStatus }) => {
+export const FormComponent: React.FC<Props> = ({ onSendStatus }) => {
   const [tnnNumber, setTnnNumber] = useState('');
   const [error, setError] = useState('');
 
