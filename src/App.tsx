@@ -1,25 +1,27 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Grid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { OrderStatus } from './components/OrderStatus';
 import { FormComponent } from './components/FormComponent';
-import { Response } from './types/types';
+import { Response, DataItem } from './types/types';
 import { sendPostRequest } from './api/requests';
 import { useLocalStorage } from './custom-hooks/useLocalStorage';
+import { OrdersHistory } from './components/OrdersHistory';
 
 export const App: React.FC = () => {
   const [order, setOrder] = useState<Response | null>(null);
 
-  const documentNumber = order?.data.find(item => item.Number);
+  const orderInfo = order?.data.find((item: DataItem) => item.Number);
   
   const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
   console.log(storedOrders);
   
   const addOrder = (item: Response | null) => {
     const orderExist = storedOrders.some((orders: Response) => (
-      orders.data.map(orderData => orderData.Number === documentNumber?.Number)
+      orders.data.some(orderData => orderData.Number === orderInfo?.Number)
     ));
+    console.log(orderExist);
 
     if (!orderExist) {
       const updatedOrders = [...storedOrders, item];
@@ -48,19 +50,25 @@ export const App: React.FC = () => {
   return (
     <Flex direction="column" height='100vh'>
       <Header />
-
-      <Flex
-        flex="1"
-        flexDir='column'
-        alignItems="center"
-        justifyContent="center"
+      <Flex 
+        flex='1' 
+        justifyContent='center' 
         background="#fafafa"
       >
-        <FormComponent onSendStatus={handleSendStatusRequest} />
-        
-        {order && 
-          <OrderStatus order={order} />
-        }
+        <Flex
+          flexDir='column'
+          alignItems="center"
+          justifyContent="center"
+        >
+          <FormComponent onSendStatus={handleSendStatusRequest} />
+
+          {order && 
+            <OrderStatus order={order} />
+          }
+        </Flex>
+
+        <OrdersHistory ordersHistory={storedOrders} />
+
       </Flex>
 
       <Footer />

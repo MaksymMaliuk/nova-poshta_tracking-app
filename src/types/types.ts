@@ -1,4 +1,4 @@
-interface DataItem {
+export interface DataItem {
   Number: string;
   StatusCode: string;
   Status: string;
