@@ -5,9 +5,10 @@ import { CSSObject } from '@emotion/react';
 
 type Props = {
   ordersHistory: Response[];
-  orderHistorySelect: (tnnNumber: string) => Promise<void>
+  orderHistorySelect: (tnnNumber: string) => Promise<void>;
   ordersHistoryClear: () => void;
-}
+  setSelectedOrder: React.Dispatch<React.SetStateAction<string | null>>;
+};
 
 const scrollbarStyles: CSSObject = {
   '&::-webkit-scrollbar': {
@@ -22,34 +23,26 @@ const scrollbarStyles: CSSObject = {
   },
 };
 
-export const OrdersHistory: React.FC<Props> = ({ 
-  ordersHistory, 
+export const OrdersHistory: React.FC<Props> = ({
+  ordersHistory,
   orderHistorySelect,
-  ordersHistoryClear
+  ordersHistoryClear,
+  setSelectedOrder,
 }) => {
-
   return (
-    <Flex
-      alignItems='center'
-      flexDirection='column'
-    >
-      <Heading 
-        mb={4} 
-        as='h3' 
-        size='md'
-      >
+    <Flex alignItems='center' flexDirection='column'>
+      <Heading mb={4} as='h3' size='md'>
         Історія операцій
       </Heading>
 
-      <Button 
-        colorScheme='black' 
+      <Button
+        colorScheme='black'
         variant='link'
         mb='12px'
         onClick={ordersHistoryClear}
       >
         Очистити історію
       </Button>
-
 
       <Box
         boxShadow='0 0 4px #0000001f'
@@ -60,22 +53,26 @@ export const OrdersHistory: React.FC<Props> = ({
         h='300px'
         overflowY='auto'
         background='#fff'
-        justifyContent='center' 
+        justifyContent='center'
         alignItems='center'
       >
         {ordersHistory.map(({ data }) =>
           data.map(({ Number }) => (
             <Box
-              onClick={() => orderHistorySelect(Number)}
+              onClick={() => {
+                orderHistorySelect(Number);
+                setSelectedOrder(Number);
+              }}
               _hover={{ background: '#E2E8F0' }}
-              cursor='pointer' 
-              borderRadius='4px' 
-              p='8px 10px' 
+              cursor='pointer'
+              borderRadius='4px'
+              p='8px 10px'
               key={Number}
             >
               {Number}
             </Box>
-          )))}
+          ))
+        )}
       </Box>
     </Flex>
   );
