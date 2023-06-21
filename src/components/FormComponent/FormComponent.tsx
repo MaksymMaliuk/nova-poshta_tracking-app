@@ -22,6 +22,11 @@ export const FormComponent: React.FC<Props> = ({ onSendStatus }) => {
       return;
     }
 
+    if (tnnNumber.length !== 14) {
+      setError('Перевірте корректність номеру');
+      return;
+    }
+
     try {
       await onSendStatus(tnnNumber);
     } catch (error) {
