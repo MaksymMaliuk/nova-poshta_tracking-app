@@ -5,6 +5,7 @@ import { CSSObject } from '@emotion/react';
 
 type Props = {
   ordersHistory: Response[];
+  orderHistorySelect: (tnnNumber: string) => Promise<void>
 }
 
 const scrollbarStyles: CSSObject = {
@@ -20,7 +21,7 @@ const scrollbarStyles: CSSObject = {
   },
 };
 
-export const OrdersHistory: React.FC<Props> = ({ ordersHistory }) => {
+export const OrdersHistory: React.FC<Props> = ({ ordersHistory, orderHistorySelect }) => {
 
   return (
     <Flex
@@ -47,17 +48,19 @@ export const OrdersHistory: React.FC<Props> = ({ ordersHistory }) => {
         justifyContent='center' 
         alignItems='center'
       >
-        {ordersHistory.map(orderItem => orderItem.data.map(dataElement => (
-          <Box
-            _hover={{ background: '#E2E8F0' }}
-            cursor='pointer' 
-            borderRadius='4px' 
-            p='8px 10px' 
-            key={dataElement.Number}
-          >
-            {dataElement.Number}
-          </Box>
-        )))}
+        {ordersHistory.map(({ data }) =>
+          data.map(({ Number }) => (
+            <Box
+              onClick={() => orderHistorySelect(Number)}
+              _hover={{ background: '#E2E8F0' }}
+              cursor='pointer' 
+              borderRadius='4px' 
+              p='8px 10px' 
+              key={Number}
+            >
+              {Number}
+            </Box>
+          )))}
       </Box>
     </Flex>
   );

@@ -27,6 +27,8 @@ export const FormComponent: React.FC<Props> = ({ onSendStatus }) => {
     } catch (error) {
       setError('Помилка при відправленні статусу');
     }
+    
+    setTnnNumber('');
   };
 
   return (

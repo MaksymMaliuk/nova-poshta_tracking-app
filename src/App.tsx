@@ -1,4 +1,4 @@
-import { Flex, Grid } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -11,14 +11,13 @@ import { OrdersHistory } from './components/OrdersHistory';
 
 export const App: React.FC = () => {
   const [order, setOrder] = useState<Response | null>(null);
-
-  const orderInfo = order?.data.find((item: DataItem) => item.Number);
-  
   const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
   
+  const orderInfo = order?.data.find((item: DataItem) => item.Number);
+
   const addOrder = (item: Response | null) => {
-    const orderExist = storedOrders.some((orders: Response) => (
-      orders.data.some(orderData => orderData.Number === orderInfo?.Number)
+    const orderExist = storedOrders.some(({ data }: Response) => (
+      data.some(({ Number }) => Number === orderInfo?.Number)
     ));
     console.log(orderExist);
 
@@ -29,7 +28,7 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const storedOrder = localStorage.getItem('phones');
+    const storedOrder = localStorage.getItem('orders');
 
     if (order) {
       addOrder(order); 
@@ -70,7 +69,9 @@ export const App: React.FC = () => {
         </Flex>
 
         {storedOrders.length > 0 &&
-         <OrdersHistory ordersHistory={storedOrders} />
+         <OrdersHistory
+           orderHistorySelect={handleSendStatusRequest}
+           ordersHistory={storedOrders} />
         }  
       </Flex>
 
