@@ -51,8 +51,11 @@ export const FormComponent: React.FC<Props> = ({ onSendStatus }) => {
         {error}
       </FormErrorMessage>
 
-      <Button type='submit' onClick={handleSubmit}>
-
+      <Button 
+        type='submit'
+        colorScheme='red'
+        onClick={handleSubmit}
+      >
         Відслідкувати замовлення
       </Button>
     </FormControl>
