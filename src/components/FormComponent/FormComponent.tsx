@@ -43,6 +43,7 @@ export const FormComponent: React.FC<Props> = ({ onSendStatus }) => {
       <Input
         value={tnnNumber}
         onChange={handleChangeTnn}
+        textAlign='center'
         placeholder='Введіть ТНН замовлення'
         type='number'
         isInvalid={!!error}
