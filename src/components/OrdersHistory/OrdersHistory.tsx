@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { Response } from '../../types/types';
 import { CSSObject } from '@emotion/react';
 
 type Props = {
   ordersHistory: Response[];
   orderHistorySelect: (tnnNumber: string) => Promise<void>
+  ordersHistoryClear: () => void;
 }
 
 const scrollbarStyles: CSSObject = {
@@ -21,7 +22,11 @@ const scrollbarStyles: CSSObject = {
   },
 };
 
-export const OrdersHistory: React.FC<Props> = ({ ordersHistory, orderHistorySelect }) => {
+export const OrdersHistory: React.FC<Props> = ({ 
+  ordersHistory, 
+  orderHistorySelect,
+  ordersHistoryClear
+}) => {
 
   return (
     <Flex
@@ -35,6 +40,16 @@ export const OrdersHistory: React.FC<Props> = ({ ordersHistory, orderHistorySele
       >
         Історія операцій
       </Heading>
+
+      <Button 
+        colorScheme='black' 
+        variant='link'
+        mb='12px'
+        onClick={ordersHistoryClear}
+      >
+        Очистити історію
+      </Button>
+
 
       <Box
         boxShadow='0 0 4px #0000001f'
