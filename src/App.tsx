@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { OrderStatus } from './components/OrderStatus';
 import { FormComponent } from './components/FormComponent';
-import { Response, DataItem } from './types/types';
+import { Response } from './types/types';
 import { sendPostRequest } from './api/requests';
 import { useLocalStorage } from './custom-hooks/useLocalStorage';
 import { OrdersHistory } from './components/OrdersHistory';
@@ -13,12 +13,13 @@ export const App: React.FC = () => {
   const [order, setOrder] = useState<Response | null>(null);
   const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+  const [statusCode, setStatusCode] = useState('');
 
-  const orderInfo = order?.data.find((item: DataItem) => item.Number);
+  const orderNumber = order?.data[0]['Number'];
 
   const addOrder = (item: Response | null) => {
     const orderExist = storedOrders.some(({ data }: Response) =>
-      data.some(({ Number }) => Number === orderInfo?.Number)
+      data.some(({ Number }) => Number === orderNumber)
     );
 
     if (!orderExist) {
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const storedOrder = localStorage.getItem('orders');
 
-    if (order) {
+    if (order && statusCode !== '3') {
       addOrder(order);
       return;
     }
@@ -46,6 +47,9 @@ export const App: React.FC = () => {
 
   const handleSendStatusRequest = async (tnnNumber: string): Promise<void> => {
     const response = await sendPostRequest(tnnNumber);
+    const statusCode = response.data[0]['StatusCode'];
+    setStatusCode(statusCode);   
+    
     setOrder(response);
   };
 
