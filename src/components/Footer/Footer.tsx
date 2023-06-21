@@ -8,7 +8,10 @@ export const Footer: React.FC = () => {
       bg="gray.200" 
       p={4}
     >
-        Футер
+        Developed by:&nbsp;
+      <a href='https://github.com/MaksymMaliuk' >
+        Maksym Maliuk
+      </a>
     </Flex>
   );
 };
