@@ -27,6 +27,10 @@ export const App: React.FC = () => {
     }
   };
 
+  const clearHistory =  () => (
+    setStoredOrders([])
+  );
+
   useEffect(() => {
     const storedOrder = localStorage.getItem('orders');
 
@@ -71,7 +75,9 @@ export const App: React.FC = () => {
         {storedOrders.length > 0 &&
          <OrdersHistory
            orderHistorySelect={handleSendStatusRequest}
-           ordersHistory={storedOrders} />
+           ordersHistory={storedOrders}
+           ordersHistoryClear={clearHistory}
+         />
         }  
       </Flex>
 
