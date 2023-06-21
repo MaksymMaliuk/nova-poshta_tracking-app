@@ -12,14 +12,14 @@ import { OrdersHistory } from './components/OrdersHistory';
 export const App: React.FC = () => {
   const [order, setOrder] = useState<Response | null>(null);
   const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
-  
+  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+
   const orderInfo = order?.data.find((item: DataItem) => item.Number);
 
   const addOrder = (item: Response | null) => {
-    const orderExist = storedOrders.some(({ data }: Response) => (
+    const orderExist = storedOrders.some(({ data }: Response) =>
       data.some(({ Number }) => Number === orderInfo?.Number)
-    ));
-    console.log(orderExist);
+    );
 
     if (!orderExist) {
       const updatedOrders = [...storedOrders, item];
@@ -27,18 +27,18 @@ export const App: React.FC = () => {
     }
   };
 
-  const clearHistory =  () => (
-    setStoredOrders([])
-  );
+  const clearHistory = () => {
+    setStoredOrders([]);
+  };
 
   useEffect(() => {
     const storedOrder = localStorage.getItem('orders');
 
     if (order) {
-      addOrder(order); 
+      addOrder(order);
       return;
     }
-    
+
     if (storedOrder) {
       setStoredOrders(JSON.parse(storedOrder));
     }
@@ -50,35 +50,28 @@ export const App: React.FC = () => {
   };
 
   return (
-    <Flex direction="column" height='100vh'>
+    <Flex direction='column' height='100vh'>
       <Header />
 
-      <Flex 
-        flex='1' 
-        alignItems='center'
-        background="#fafafa"
-        justifyContent='center'
-        gap={10}
-      >
-        <Flex
-          flexDir='column'
-          alignItems="center"
-          justifyContent="center"
-        >
-          <FormComponent onSendStatus={handleSendStatusRequest} />
+      <Flex flex='1' alignItems='center' background='#fafafa' justifyContent='center' gap={10}>
+        <Flex flexDir='column' alignItems='center' justifyContent='center'>
+          <FormComponent
+            onSendStatus={handleSendStatusRequest}
+            selectedOrder={selectedOrder}
+            setSelectedOrder={setSelectedOrder}
+          />
 
-          {order && 
-            <OrderStatus order={order} />
-          }
+          {order && <OrderStatus order={order} />}
         </Flex>
 
-        {storedOrders.length > 0 &&
-         <OrdersHistory
-           orderHistorySelect={handleSendStatusRequest}
-           ordersHistory={storedOrders}
-           ordersHistoryClear={clearHistory}
-         />
-        }  
+        {storedOrders.length > 0 && (
+          <OrdersHistory
+            orderHistorySelect={handleSendStatusRequest}
+            ordersHistory={storedOrders}
+            ordersHistoryClear={clearHistory}
+            setSelectedOrder={setSelectedOrder}
+          />
+        )}
       </Flex>
 
       <Footer />
