@@ -58,8 +58,9 @@ export const FormComponent: React.FC<Props> = ({
         value={selectedOrder || tnnNumber}
         onChange={handleChangeTnn}
         textAlign='center'
-        placeholder='Введіть ТНН замовлення'
-        type='number'
+        placeholder='Введіть ТТН замовлення'
+        type='text'
+        maxLength={14}
         isInvalid={!!error}
       />
 
