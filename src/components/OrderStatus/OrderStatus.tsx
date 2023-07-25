@@ -1,9 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
-import { Response } from '../../types/types';
+import { Response } from '../../types/Response';
+import { OrderData } from '../../types/Order';
 
 type Props = {
-  order: Response
+  order: Response<OrderData[]>
 }
 
 export const OrderStatus: React.FC<Props> = ({ order }) => {

@@ -2,21 +2,22 @@ import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { OrderStatus } from '../components/OrderStatus';
 import { FormComponent } from '../components/FormComponent';
-import { Response } from '../types/types';
+import { Response } from '../types/Response';
 import { orderDataRequest } from '../api/requests';
 import { useLocalStorage } from '../custom-hooks/useLocalStorage';
 import { OrdersHistory } from '../components/OrdersHistory';
+import { OrderData } from '../types/Order';
 
 export const OrdersPage: React.FC = () => {
-  const [order, setOrder] = useState<Response | null>(null);
-  const [storedOrders, setStoredOrders] = useLocalStorage<Response[]>('orders', []);
+  const [order, setOrder] = useState<Response<OrderData[]> | null>(null);
+  const [storedOrders, setStoredOrders] = useLocalStorage<OrderData[]>('orders', []);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [statusCode, setStatusCode] = useState('');
 
   const currentOrderNumber = order?.data[0]['Number'];
   
-  const addOrder = (orderItem: Response | null) => {
-    const orderExist = storedOrders.some(({ data }: Response) =>
+  const addOrder = (orderItem: Response<OrderData[]> | null) => {
+    const orderExist = storedOrders.some(({ data }: Response<OrderData[]>) =>
       data.some(({ Number }) => Number === currentOrderNumber)
     );
 
