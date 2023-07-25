@@ -14,7 +14,7 @@ const center = {
 };
 
 export const MapPage: React.FC = () => {
-  const [warehouses, setWarehouses] = useState<WarehouseData[]>([]);
+  const [warehouses, setWarehouses] = useState<WarehouseData[]>();
   const [cityName, setCityName] = useState('');
   const [warehouseId, setWarehouseId] = useState('');
   const [mapPosition, setMapPosition] = useState<MapCenter>(center);
@@ -88,8 +88,8 @@ export const MapPage: React.FC = () => {
         <Button type='submit' colorScheme='red' onClick={handleSubmit}>
           Знайти відділення
         </Button>
-
-        <WarehousesList warehouses={warehouses}/>
+        
+        {warehouses && <WarehousesList warehouses={warehouses}/>}
       </Flex>
       
     </Flex>
