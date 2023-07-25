@@ -13,11 +13,11 @@ interface Warning {
 export interface Response {
   success: boolean;
   data: DataItem[];
-  errors: any[];
+  errors: string[];
   warnings: Warning[];
-  info: any[];
-  messageCodes: any[];
-  errorCodes: any[];
-  warningCodes: any[];
-  infoCodes: any[];
+  info: string[];
+  messageCodes: string[];
+  errorCodes: string[];
+  warningCodes: string[];
+  infoCodes: string[];
 }

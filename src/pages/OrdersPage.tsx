@@ -54,30 +54,36 @@ export const OrdersPage: React.FC = () => {
   };
 
   return (
-    <Flex direction='column' height='100vh'>
+    
+    <Flex 
+      flex='1' 
+      alignItems='center' 
+      background='#fafafa' 
+      justifyContent='center' 
+      gap={10}
+    >
+      <Flex 
+        flexDir='column' 
+        alignItems='center' 
+        justifyContent='center'
+      >
+        <FormComponent
+          onSendStatus={handleSendStatusRequest}
+          selectedOrder={selectedOrder}
+          setSelectedOrder={setSelectedOrder}
+        />
 
-      <Flex flex='1' alignItems='center' background='#fafafa' justifyContent='center' gap={10}>
-        <Flex flexDir='column' alignItems='center' justifyContent='center'>
-          <FormComponent
-            onSendStatus={handleSendStatusRequest}
-            selectedOrder={selectedOrder}
-            setSelectedOrder={setSelectedOrder}
-          />
-
-          {order && <OrderStatus order={order} />}
-        </Flex>
-
-        {storedOrders.length > 0 && (
-          <OrdersHistory
-            orderHistorySelect={handleSendStatusRequest}
-            ordersHistory={storedOrders}
-            ordersHistoryClear={clearHistory}
-            setSelectedOrder={setSelectedOrder}
-          />
-        )}
+        {order && <OrderStatus order={order} />}
       </Flex>
 
-      <Footer />
+      {storedOrders.length > 0 && (
+        <OrdersHistory
+          orderHistorySelect={handleSendStatusRequest}
+          ordersHistory={storedOrders}
+          ordersHistoryClear={clearHistory}
+          setSelectedOrder={setSelectedOrder}
+        />
+      )}
     </Flex>
   );
 };
