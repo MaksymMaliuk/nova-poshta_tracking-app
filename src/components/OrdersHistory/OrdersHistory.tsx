@@ -5,7 +5,7 @@ import { CSSObject } from '@emotion/react';
 
 type Props = {
   ordersHistory: Response[];
-  orderHistorySelect: (tnnNumber: string) => Promise<void>;
+  orderHistorySelect: (ttnNumber: string) => Promise<void>;
   ordersHistoryClear: () => void;
   setSelectedOrder: React.Dispatch<React.SetStateAction<string | null>>;
 };

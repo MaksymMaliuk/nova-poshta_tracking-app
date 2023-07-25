@@ -1,11 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
 import { OrderStatus } from '../components/OrderStatus';
 import { FormComponent } from '../components/FormComponent';
 import { Response } from '../types/types';
-import { sendPostRequest } from '../api/requests';
+import { orderDataRequest } from '../api/requests';
 import { useLocalStorage } from '../custom-hooks/useLocalStorage';
 import { OrdersHistory } from '../components/OrdersHistory';
 
@@ -15,15 +13,15 @@ export const OrdersPage: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [statusCode, setStatusCode] = useState('');
 
-  const orderNumber = order?.data[0]['Number'];
-
-  const addOrder = (item: Response | null) => {
+  const currentOrderNumber = order?.data[0]['Number'];
+  
+  const addOrder = (orderItem: Response | null) => {
     const orderExist = storedOrders.some(({ data }: Response) =>
-      data.some(({ Number }) => Number === orderNumber)
+      data.some(({ Number }) => Number === currentOrderNumber)
     );
 
     if (!orderExist) {
-      const updatedOrders = [...storedOrders, item];
+      const updatedOrders = [...storedOrders, orderItem];
       setStoredOrders(updatedOrders);
     }
   };
@@ -45,8 +43,8 @@ export const OrdersPage: React.FC = () => {
     }
   }, [order]);
 
-  const handleSendStatusRequest = async (tnnNumber: string): Promise<void> => {
-    const response = await sendPostRequest(tnnNumber);
+  const handleSendStatusRequest = async (ttnNumber: string): Promise<void> => {
+    const response = await orderDataRequest(ttnNumber);
     const statusCode = response.data[0]['StatusCode'];
     setStatusCode(statusCode);   
     

@@ -4,7 +4,7 @@ import { Input } from '@chakra-ui/input';
 import React, { useState } from 'react';
 
 type Props = {
-  onSendStatus: (tnnNumber: string) => Promise<void>;
+  onSendStatus: (ttnNumber: string) => Promise<void>;
   selectedOrder: string | null;
   setSelectedOrder: React.Dispatch<React.SetStateAction<string | null>>;
 };
@@ -14,32 +14,32 @@ export const FormComponent: React.FC<Props> = ({
   selectedOrder,
   setSelectedOrder
 }) => {
-  const [tnnNumber, setTnnNumber] = useState('');
+  const [ttnNumber, setttnNumber] = useState('');
   const [error, setError] = useState('');
 
-  const handleChangeTnn = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newTnnNumber = event.target.value;
+  const handleChangettn = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newttnNumber = event.target.value;
     
-    if (selectedOrder !== newTnnNumber) {
-      setTnnNumber(newTnnNumber);
+    if (selectedOrder !== newttnNumber) {
+      setttnNumber(newttnNumber);
       setSelectedOrder(null);
       setError('');
     }
   };
 
   const handleSubmit = async () => {
-    if (tnnNumber.trim() === '') {
+    if (ttnNumber.trim() === '') {
       setError('Поле має бути заповнене');
       return;
     }
 
-    if (tnnNumber.length !== 14) {
+    if (ttnNumber.length !== 14) {
       setError('Перевірте корректність номеру');
       return;
     }
 
     try {
-      await onSendStatus(tnnNumber);
+      await onSendStatus(ttnNumber);
     } catch (error) {
       setError('Помилка при відправленні статусу');
     }
@@ -55,8 +55,8 @@ export const FormComponent: React.FC<Props> = ({
       isInvalid={!!error}
     >
       <Input
-        value={selectedOrder || tnnNumber}
-        onChange={handleChangeTnn}
+        value={selectedOrder || ttnNumber}
+        onChange={handleChangettn}
         textAlign='center'
         placeholder='Введіть ТТН замовлення'
         type='text'
