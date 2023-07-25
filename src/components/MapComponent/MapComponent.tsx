@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/layout';
-import { GoogleMap, GoogleMapProps, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import React, { useCallback, useRef, useState } from 'react';
 import { MapCenter } from '../../types/Map';
 
