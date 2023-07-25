@@ -7,4 +7,5 @@ export interface WarehouseData {
   Longitude: number;
   Latitude: number;
   WarehouseStatus: string;
+  WarehouseId: string
 }
