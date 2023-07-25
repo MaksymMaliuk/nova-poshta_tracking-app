@@ -9,8 +9,6 @@ type Props = {
 export const Warehouse: React.FC<Props> = ({ warehouse }) => {
   const {
     Number,
-    CityDescription, 
-    Description, 
     ShortAddress,
   } = warehouse;
   
