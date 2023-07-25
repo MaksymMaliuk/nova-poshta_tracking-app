@@ -1,9 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
-import { Response } from '../../types/types';
+import { Response } from '../../types/Response';
+import { OrderData } from '../../types/Order';
 
 type Props = {
-  order: Response
+  order: Response<OrderData[]>
 }
 
 export const OrderStatus: React.FC<Props> = ({ order }) => {
@@ -17,12 +18,14 @@ export const OrderStatus: React.FC<Props> = ({ order }) => {
       flexDir='column'
       gap={4}
       boxShadow='0 0 4px #0000001f'
-      minW='400px'
-      maxW='700px'
+      w='500px'
       height='auto' 
       background='#fff'
     >
-      <div>Статус доставки: {status}</div>
+      <div>
+        <b>Статус доставки:</b> {status}
+      </div>
+
       {data.map((item, index) => {
         const {
           WarehouseSender,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, Image } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/NP-logo.png';
 
 export const Header: React.FC = () => (
@@ -17,5 +18,17 @@ export const Header: React.FC = () => (
         alt='Nova poshta logo' 
       />
     </a>
+
+    <div>
+      <Link to='/'>
+        Замовлення
+      </Link>
+    </div>
+
+    <div>
+      <Link to='post-offices'>
+        Відділення
+      </Link>
+    </div>
   </Flex>
 );

@@ -1,23 +1,44 @@
-import { Response } from '../types/types';
-
+import { OrderData } from '../types/Order';
+import { RequestBody } from '../types/Request';
+import { WarehouseData } from '../types/Warehouse';
+import { Response } from '../types/Response';
 import { post } from './fetchClient';
 
 const BASE_URL = 'https://api.novaposhta.ua/v2.0/json/';
-const API_KEY = 'd216233aaa8e296a5998dc8b09168fcf';
+const API_KEY = import.meta.env.VITE_NOVA_POSHTA_API_KEY;
 
-export const sendPostRequest = async (tnn: string): Promise<Response> => {
-  const requestBody = {
-    apiKey: API_KEY,
+export const orderDataRequest = async (
+  ttn: string
+): Promise<Response<OrderData[]>> => {
+  const requestBody: RequestBody = {
+    API_KEY,
     modelName: 'TrackingDocument',
     calledMethod: 'getStatusDocuments',
     methodProperties: {
       Documents: [
         {
-          DocumentNumber: tnn,
+          DocumentNumber: ttn,
         },
       ],
     },
   };
 
-  return await post<Response>(BASE_URL, requestBody);
+  return await post<Response<OrderData[]>>(BASE_URL, requestBody);
+};
+
+export const warehouseDataRequest = async (
+  cityName: string, 
+  warehouseId?: string
+): Promise<Response<WarehouseData[]>> => {
+  const requestBody: RequestBody = {
+    API_KEY,
+    modelName: 'Address',
+    calledMethod: 'getWarehouses',
+    methodProperties: {
+      CityName: cityName,
+      WarehouseId: warehouseId
+    },
+  };
+
+  return await post<Response<WarehouseData[]>>(BASE_URL, requestBody);
 };

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
-import { Response } from '../../types/types';
+import { Response } from '../../types/Response';
 import { CSSObject } from '@emotion/react';
+import { OrderData } from '../../types/Order';
 
 type Props = {
-  ordersHistory: Response[];
-  orderHistorySelect: (tnnNumber: string) => Promise<void>;
+  ordersHistory: Response<OrderData[]>[];
+  orderHistorySelect: (ttnNumber: string) => Promise<void>;
   ordersHistoryClear: () => void;
   setSelectedOrder: React.Dispatch<React.SetStateAction<string | null>>;
 };
