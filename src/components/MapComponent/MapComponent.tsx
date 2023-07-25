@@ -18,9 +18,10 @@ const defaultOptions = {
 
 type Props = {
   center: MapCenter
+  zoom: number
 }
 
-export const MapComponent: React.FC<Props> = ({ center }) => {
+export const MapComponent: React.FC<Props> = ({ center, zoom }) => {
   const [map, setMap] = useState(undefined);
   const mapRef = useRef(undefined);
 
@@ -46,7 +47,7 @@ export const MapComponent: React.FC<Props> = ({ center }) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={4.85}
+          zoom={zoom}
           onLoad={onLoad}
           onUnmount={onUnmount}
           options={defaultOptions}

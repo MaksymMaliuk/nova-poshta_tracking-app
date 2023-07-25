@@ -7,17 +7,18 @@ type Props = {
 }
 
 export const Warehouse: React.FC<Props> = ({ warehouse }) => {
-  const { 
+  const {
+    Number,
     CityDescription, 
     Description, 
-    ShortAddress, 
+    ShortAddress,
   } = warehouse;
-
+  
   return (
     <ListItem
       p='4px'
     >
-      <h2>{ShortAddress}</h2>
+      <h2>{ShortAddress}, {Number}</h2>
     </ListItem>
   );
 };
